@@ -1,5 +1,7 @@
 # Redis Marshal
 
+![travis](https://api.travis-ci.org/mitjafelicijan/redis-marshal.svg?branch=devel)
+
 ![Query window](https://user-images.githubusercontent.com/296714/40736271-de176370-643d-11e8-9ebe-4d0289893cc7.png)
 
 

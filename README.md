@@ -19,6 +19,8 @@
 - All dependencies are included with source (no pip or virtualenv needed).
 - Works with Docker and docker-compose.
 - No autentication implemented (use Nginx or Caddy as a reverse proxy and add Basic-Auth).
+- Allows bulk key deletion.
+- Autogenerates forms from hashsets and enables adding and removing attributes.
 
 
 ### TODO

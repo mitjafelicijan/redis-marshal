@@ -1,0 +1,10 @@
+# files
+.DS_Store
+.dockerignore
+.gitignore
+docker-compose.yml
+Dockerfile
+README.md
+
+# directories
+.git

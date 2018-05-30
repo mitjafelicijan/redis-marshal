@@ -1,6 +1,6 @@
 # Redis Marshal
 
-![Query window](https://user-images.githubusercontent.com/296714/40736274-de66584a-643d-11e8-8c16-450e6af916ab.png)
+![Query window](https://user-images.githubusercontent.com/296714/40736271-de176370-643d-11e8-9ebe-4d0289893cc7.png)
 
 
 ### Current data type support

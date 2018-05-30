@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Redis Marshal</title>
+
+	<link rel="stylesheet" href="$$path$$static/app.css">
+</head>
+<body>
+
+	<section id="ops" class="grid-half">
+		<div>
+			<button class="big add-string hide">add string</button>
+			<button class="big add-hash hide">add hash</button>
+			<button class="big help">help me with querying</button>
+			<button class="big dump hide">dump database</button>
+		</div>
+		<div class="right" id="server-info"></div>
+	</section>
+
+	<input type="search" id="query" placeholder="query string ..." autofocus autocapitalize="off" spellcheck="false">
+
+	<section id="query-results"></section>
+
+	<section id="item-form"></section>
+
+	<!-- templates -->
+
+	<script id="item-form-tmpl" type="text/x-handlebars-template">
+		<div><h3>Key: {{key}}</h3></div>
+		<hr>
+		{{#if hash}}
+		<table class="no-border form">
+			<tbody>
+				{{#each value}}
+				<tr>
+					<td><input type="text" name="key" value="{{@key}}"></td>
+					<td><input type="text" name="value" value="{{this}}"></td>
+					<td class="match-content">
+						<button type="button" class="delete" title="Delete item">d</button>
+					</td>
+				</tr>
+				{{/each}}
+			</tbody>
+		</table>
+		{{else}}
+		<table class="no-border form">
+			<tbody>
+				<tr>
+					<td><input type="text" name="value" value="{{value}}"></td>
+				</tr>
+			</tbody>
+		</table>
+		{{/if}}
+		<hr>
+		<div>
+			{{#if hash}}<button class="big add-attribute">add attribute</button>{{/if}}
+			<button class="big save-item">save item</button>
+			<button class="big close">close</button>
+		</div>
+	</script>
+
+	<script id="server-info-tmpl" type="text/x-handlebars-template">
+		<div class="column">
+			<span class="small">num keys</span>
+			<span class="medium">{{db.keys}}</span>
+		</div>
+		<div class="column">
+			<span class="small">processed</span>
+			<span class="medium">{{total_commands_processed}}</span>
+		</div>
+		<div class="column">
+			<span class="small">mem used</span>
+			<span class="medium">{{used_memory_human}}</span>
+		</div>
+	</script>
+
+	<script id="query-results-tmpl" type="text/x-handlebars-template">
+		<section id="ops">
+			<button class="big bulk-delete">bulk delete</button>
+		</section>
+		<table class="sortable">
+			<thead>
+				<tr>
+					<th class="match-content"><input type="checkbox"></th>
+					<th class="match-content sort">Type</th>
+					<th class="sort">Key</th>
+					<th class="right match-content sort">TTL</th>
+					<th class="right match-content"></th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#each this}}
+				<tr data-key="{{key}}" data-type="{{type}}">
+					<td><input type="checkbox"></td>
+					<td>{{type}}</td>
+					<td>{{key}}</td>
+					<td class="right">{{ttl}}</td>
+					<td class="right match-content">
+						<button type="button" class="view" title="View item">v</button>
+						<button type="button" class="delete" title="Delete item">d</button>
+					</td>
+				</tr>
+				{{/each}}
+			</tbody>
+		</table>
+	</script>
+
+	<script>
+		let path = "$$path$$";
+		let db = "$$db$$";
+	</script>
+
+	<script src="https://unpkg.com/codeflask/build/codeflask.min.js"></script>
+
+	<script src="$$path$$static/handlebars.min.js"></script>
+	<script src="$$path$$static/helpers.js"></script>
+	<script src="$$path$$static/app.js"></script>
+
+</body>
+</html>

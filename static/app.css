@@ -1,0 +1,157 @@
+@charset "utf-8";
+
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&subset=latin-ext");
+@import url("https://fonts.googleapis.com/css?family=Inconsolata:400,700&subset=latin-ext");
+
+* {
+	box-sizing: border-box;
+	outline: none;
+	font-family: "Roboto", Arial, Helvetica, sans-serif;
+}
+
+body,
+html {
+	margin: 0;
+	padding: 17px 20px;
+	font-family: "Roboto", Arial, Helvetica, sans-serif;
+	font-size: 14px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	padding: 0;
+}
+
+hr {
+	border: 0;
+	height: 5px;
+}
+
+input[type="search"] {
+	font-size: 150%;
+	padding: 15px 20px;
+	width: 100%;
+	border: 2px solid lightgrey;
+	margin-bottom: 20px;
+	/* safari fix */
+	-webkit-appearance: textfield;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+table, th, td {
+	border: 2px solid lightgrey;
+	padding: 10px 15px;
+}
+
+table.no-border, table.no-border th, table.no-border td {
+	border: 0;
+}
+
+table th {
+	text-align: left;
+	background: #eee;
+	cursor: pointer;
+	user-select: none;
+}
+
+button {
+	border: 2px solid lightgrey;
+	display: inline-block;
+	background: lightgray;
+	padding: 5px 10px;
+	border-radius: 3px;
+	cursor: pointer;
+	font-weight: 700;
+	font-size: 80%;
+	line-height: 120%;
+	vertical-align: middle;
+}
+
+button.big {
+	padding: 8px 15px;
+	font-size: 95%;
+}
+
+button.delete {
+	border-color: lightcoral;
+	background: lightcoral;
+	color: white;
+}
+
+.grid-half {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.right {
+	text-align: right;
+}
+
+.match-content {
+	width: 1%;
+	white-space: nowrap;
+}
+
+section#ops {
+	margin-bottom: 20px;
+}
+
+div.column {
+	display: inline-block;
+	width: 100px;
+}
+
+span.small {
+	font-size: 70%;
+	font-weight: 700;
+	color: #aaa;
+	display: block;
+	text-transform: uppercase;
+	padding-bottom: 2px;
+}
+
+span.medium {
+	font-weight: 700;
+	font-size: 115%;
+	color: #444;
+	display: inline-block;
+	width: 60px;
+}
+
+section#item-form {
+	position: fixed;
+	z-index: 10;
+	top: 25px;
+	left: 50%;
+	width: 800px;
+	margin-left: -400px;
+	border: 2px solid lightgrey;
+	display: block;
+	background: white;
+	padding: 30px 20px;
+	display: none;
+}
+
+section#item-form input {
+	width: 100%;
+	border: 0;
+	border: 1px dashed lightgray;
+	padding: 8px 12px;
+	font-size: 105%;
+}
+
+section#item-form > div {
+	padding: 0 15px;
+}
+
+section#item-form td:first-child {
+	width: 200px;
+}
+
+.hide {
+	display: none;
+}

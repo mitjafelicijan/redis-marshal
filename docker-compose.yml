@@ -1,0 +1,34 @@
+version: "3"
+
+networks:
+  backpack-net:
+    driver: bridge
+
+services:
+
+  redisearch:
+    image: redislabs/redisearch:1.2.0
+    hostname: redisearch
+    ports:
+      - "6379:6379"
+    command: /usr/local/bin/redis-server --appendonly yes --appendfilename history.aof
+    volumes:
+      - ${PWD}/data:/data
+    networks:
+      backpack-net:
+        aliases:
+          - redis.internal
+    labels:
+      org.label-schema.group: "backpack"
+
+  redis-marshal:
+    image: mitjafelicijan/redis-marshal
+    ports:
+        - "9001:9001"
+    depends_on:
+        - redisearch
+    command: python ./application.py --port 9001 --redis-host redis.internal
+    networks:
+      - backpack-net
+    labels:
+      org.label-schema.group: "backpack"

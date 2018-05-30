@@ -13,6 +13,14 @@
 - [ ] Bitmaps and HyperLogLogs
 
 
+### Software characteristics
+
+- Written in Python2.7 (Python3.x fails on JSON serialiation - working on it).
+- All dependencies are included with source (no pip or virtualenv needed).
+- Works with Docker and docker-compose.
+- No autentication implemented (use Nginx or Caddy as a reverse proxy and add Basic-Auth).
+
+
 ### TODO
 
 - [ ] when usign * for query check num_keys and if larger that 500 alert user or even disable query

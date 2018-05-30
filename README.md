@@ -1,5 +1,7 @@
 # Redis Marshal
 
+![travis](https://api.travis-ci.org/mitjafelicijan/redis-marshal.svg?branch=devel)
+
 ![Query window](https://user-images.githubusercontent.com/296714/40736271-de176370-643d-11e8-9ebe-4d0289893cc7.png)
 
 
@@ -25,9 +27,9 @@
 
 ### TODO
 
-- [ ] when usign * for query check num_keys and if larger that 500 alert user or even disable query
+- [x] when usign * for query check num_keys and if larger that 500 alert user or even disable query
+- [x] on query enter press disable input and on results reenable input... loading
 - [ ] proccessed num format into human friendly
-- [ ] on query enter press disable input and on results reenable input... loading
 - [ ] add execute command
 
 

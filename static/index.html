@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Redis Marshal</title>
 
 	<link rel="stylesheet" href="$$path$$static/app.css">
+
 </head>
 <body>
+
+	<!-- dom elements -->
 
 	<section id="ops" class="grid-half">
 		<div>
@@ -20,7 +24,7 @@
 		<div class="right" id="server-info"></div>
 	</section>
 
-	<input type="search" id="query" placeholder="query string ..." autofocus autocapitalize="off" spellcheck="false">
+	<input type="search" id="query" placeholder="query string (enter)" autofocus autocapitalize="off" spellcheck="false">
 
 	<section id="query-results"></section>
 
@@ -108,13 +112,12 @@
 		</table>
 	</script>
 
+	<!-- javascript -->
+
 	<script>
 		let path = "$$path$$";
 		let db = "$$db$$";
 	</script>
-
-	<script src="https://unpkg.com/codeflask/build/codeflask.min.js"></script>
-
 	<script src="$$path$$static/handlebars.min.js"></script>
 	<script src="$$path$$static/helpers.js"></script>
 	<script src="$$path$$static/app.js"></script>

@@ -1,4 +1,7 @@
 const refreshRateForServerInfo = 5000;
+const queryKeySizeLimit = 500;
+
+let keyNum = 0;
 
 let queryInput;
 let queryResults;
@@ -22,6 +25,8 @@ function renderServerInfo() {
 	fetch(path + "api/info").then(res => res.json()).then((payload) => {
 		payload.db = payload["db" + db];
 		serverInfo.innerHTML = serverInfoTemplate(payload);
+		keyNum = payload.db.keys;
+		console.log(keyNum);
 	}).catch((err) => {
 		throw err;
 	});
@@ -200,11 +205,17 @@ window.addEventListener("load", function (evt) {
 	queryInput.addEventListener("keypress", function (evt) {
 		var key = evt.which || evt.keyCode;
 		if (key === 13 && this.value != "") {
-			fetch(path + "api/scan?q=" + this.value).then(res => res.json()).then((payload) => {
-				renderSearchResults(payload);
-			}).catch((err) => {
-				throw err;
-			});
+			if ((this.value == "*") && (keyNum > queryKeySizeLimit)) {
+				alert("Query not recomended. Dataset too large.");
+			} else {
+				this.disabled = true;
+				fetch(path + "api/scan?q=" + this.value).then(res => res.json()).then((payload) => {
+					renderSearchResults(payload);
+					this.disabled = false;
+				}).catch((err) => {
+					throw err;
+				});
+			}
 		}
 	});
 

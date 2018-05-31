@@ -9,7 +9,8 @@ import argparse
 import bottle
 
 CACHE_VER = "20180531"
-MAX_SIZE = 15
+MAX_SIZE = 300
+
 # terminal arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("--port", dest="port", default=5000, type=int, help="server port")

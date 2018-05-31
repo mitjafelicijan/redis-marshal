@@ -29,6 +29,7 @@ Todo list is located in [TODO.md](TODO.md).
 - Allows bulk key deletion.
 - Allows table sorting of results based on type, key and ttl.
 - Autogenerates forms from hashsets and enables adding and removing attributes.
+- Allows executing commands.
 
 
 ### Supported glob-style patterns

@@ -39,7 +39,7 @@ Todo list is located in [TODO.md](TODO.md).
 - h[^e]llo matches hallo, hbllo, ... but not hello
 - h[a-b]llo matches hallo and hbllo
 
-Use \ to escape special characters if you want to match them verbatim. More on https://redis.io/commands/keys.
+Use `\` to escape special characters if you want to match them verbatim. More on https://redis.io/commands/keys.
 
 
 

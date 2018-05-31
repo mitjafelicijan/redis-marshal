@@ -5,6 +5,12 @@ const batchChunkSize = 50;
 let keyNum = 0;
 
 let queryInput;
+let splashScreen;
+let execCommand;
+let execCommandPopup;
+let execCommandQueryInput;
+let execCommandResults;
+
 let queryResults;
 let queryResultsTemplate;
 let serverInfo;
@@ -24,7 +30,12 @@ h[a-b]llo matches hallo and hbllo`;
 
 function renderServerInfo() {
 	fetch(path + "api/info").then(res => res.json()).then((payload) => {
-		payload.db = payload["db" + db];
+		// if no keys db0 is not returned
+		if (payload.hasOwnProperty("db" + db)) {
+			payload.db = payload["db" + db];
+		} else {
+			payload["db"] = { keys: 0 };
+		}
 		keyNum = payload.db.keys;
 		payload.total_commands_processed = numberFormatter(payload.total_commands_processed, 2);
 		payload.db.keys = numberFormatter(payload.db.keys, 2);
@@ -37,11 +48,13 @@ function renderServerInfo() {
 function renderPopupForm(key, type) {
 	fetch(path + "api/get?key=" + key + "&type=" + type).then(res => res.json()).then((payload) => {
 		itemFormInfo.style.display = "block";
+		splashScreen.style.display = "block";
 		if (payload.type == "hash") payload.hash = true;
 		itemFormInfo.innerHTML = itemFormInfoTemplate(payload);
 
 		itemFormInfo.querySelector(".close").addEventListener("click", (evt) => {
 			itemFormInfo.style.display = "none";
+			splashScreen.style.display = "none";
 		}, false);
 
 		itemFormInfo.querySelectorAll(".delete").forEach((item, index) => {
@@ -107,7 +120,10 @@ function renderPopupForm(key, type) {
 			}).then(res => res.json()).then((payload) => {
 				if (payload.status) {
 					itemFormInfo.style.display = "none";
+					splashScreen.style.display = "none";
 				} else {
+					itemFormInfo.style.display = "none";
+					splashScreen.style.display = "none";
 					alert("Error saving item");
 				}
 			}).catch((err) => {
@@ -209,7 +225,13 @@ function renderSearchResults(payload) {
 
 window.addEventListener("load", function (evt) {
 
+	splashScreen = document.querySelector("section#splashscreen");
 	queryInput = document.querySelector("#query");
+	execCommand = document.querySelector("button.exec-cmd");
+	execCommandPopup = document.querySelector("#exec-command");
+	execCommandQueryInput = document.querySelector("#exec-command input");
+	execCommandResults = document.querySelector("#exec-command textarea");
+
 	queryResults = document.querySelector("section#query-results");
 	queryResultsTemplate = Handlebars.compile(document.querySelector("#query-results-tmpl").innerHTML);
 	serverInfo = document.querySelector("#server-info");
@@ -241,6 +263,36 @@ window.addEventListener("load", function (evt) {
 		showHelp();
 	}, false);
 
+	// shows execute command
+	execCommand.addEventListener("click", (evt) => {
+		execCommandPopup.style.display = "block";
+		splashScreen.style.display = "block";
+		execCommandQueryInput.focus();
+
+
+	}, false);
+
+	// execute command
+	execCommandQueryInput.addEventListener("keypress", function (evt) {
+		var key = evt.which || evt.keyCode;
+		if (key === 13 && this.value != "") {
+			this.disabled = true;
+			let dt = new Date();
+			execCommandResults.value +=  dt.toLocaleTimeString() + " >> " + this.value + "\n";
+			fetch(path + "api/exec", {
+				method: "POST",
+				body: JSON.stringify({cmd: this.value}),
+			}).then(res => res.json()).then((payload) => {
+				execCommandResults.value +=payload.message + "\n\n";
+				execCommandResults.scrollTop = execCommandResults.scrollHeight;
+				this.disabled = false;
+				this.focus();
+			}).catch((err) => {
+				throw err;
+			});
+		}
+	});
+
 	// shows help
 	document.querySelector("#ops .dump").addEventListener("click", (evt) => {
 		alert("Not implemented yet!");
@@ -257,7 +309,16 @@ window.addEventListener("load", function (evt) {
 		}
 		if (isEscape) {
 			itemFormInfo.style.display = "none";
+			splashScreen.style.display = "none";
+			execCommandPopup.style.display = "none";
 		}
+	}, false);
+
+	// on esc hides modal
+	splashScreen.addEventListener("click", (evt) => {
+		itemFormInfo.style.display = "none";
+		splashScreen.style.display = "none";
+		execCommandPopup.style.display = "none";
 	}, false);
 
 	// refreshed info

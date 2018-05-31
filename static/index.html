@@ -86,6 +86,7 @@
 			<button class="big bulk-delete">bulk delete</button>
 			<label>
 				<u>{{items.length}} items</u> fetched from Redis
+				<span>➜ query took {{elapsed}}ms</span>
 				<span class="red">{{#if limitReached}}(query too broad -> omitting other results){{/if}}</span>
 			</label>
 		</section>

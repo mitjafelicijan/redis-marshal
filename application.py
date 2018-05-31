@@ -2,6 +2,7 @@
 
 import os
 import sys
+import datetime
 import json
 import redis
 import logging
@@ -56,10 +57,11 @@ def route_default():
 
 @app.route("{}api/scan".format(args["path"]), method=["GET"])
 def route_api_scan():
-	payload = { "limitReached": False, "items": []}
+	payload = { "limitReached": False, "items": [], "elapsed": 0 }
 	query = bottle.request.query.q
 	pattern = query if query != "" else "*"
 	key_counter = 0
+	start = datetime.datetime.now()
 	for key in app.config["r"].scan_iter(pattern):
 		if key_counter < MAX_SIZE:
 			payload["items"].append({
@@ -71,6 +73,10 @@ def route_api_scan():
 		else:
 			payload["limitReached"] = True
 			break
+	end = datetime.datetime.now()
+	diff = (end - start)
+	elapsed_ms = (diff.days * 86400000) + (diff.seconds * 1000) + (diff.microseconds / 1000)
+	payload["elapsed"] = elapsed_ms
 
 	bottle.response.headers["Content-Type"] = "application/json"
 	bottle.response.headers["Cache-Control"] = "no-cache"

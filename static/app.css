@@ -134,6 +134,8 @@ section#item-form {
 	background: white;
 	padding: 30px 20px;
 	display: none;
+	max-height: 500px;
+	overflow: auto;
 }
 
 section#item-form input {

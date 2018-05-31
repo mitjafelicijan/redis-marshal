@@ -1,6 +1,6 @@
 # Redis Marshal
 
-![travis](https://api.travis-ci.org/mitjafelicijan/redis-marshal.svg?branch=devel)
+[![Build Status MASTER](https://travis-ci.org/mitjafelicijan/redis-marshal.svg?branch=master)](https://travis-ci.org/mitjafelicijan/redis-marshal) [![Build Status DEVEL](https://travis-ci.org/mitjafelicijan/redis-marshal.svg?branch=devel)](https://travis-ci.org/mitjafelicijan/redis-marshal)
 
 ![Query window](https://user-images.githubusercontent.com/296714/40736271-de176370-643d-11e8-9ebe-4d0289893cc7.png)
 
@@ -23,6 +23,17 @@
 - No autentication implemented (use Nginx or Caddy as a reverse proxy and add Basic-Auth).
 - Allows bulk key deletion.
 - Autogenerates forms from hashsets and enables adding and removing attributes.
+
+
+### Supported glob-style patterns
+
+- h?llo matches hello, hallo and hxllo
+- h*llo matches hllo and heeeello
+- h[ae]llo matches hello and hallo, but not hillo
+- h[^e]llo matches hallo, hbllo, ... but not hello
+- h[a-b]llo matches hallo and hbllo
+
+Use \ to escape special characters if you want to match them verbatim. More on https://redis.io/commands/keys.
 
 
 ### TODO
@@ -104,3 +115,11 @@ unzip master.zip
 cd redis-marshal-master
 python2 application.py
 ```
+
+
+### Made with the help of
+
+- https://github.com/bottlepy/bottle
+- https://github.com/Pylons/waitress
+- https://github.com/andymccurdy/redis-py
+- https://github.com/wycats/handlebars.js/

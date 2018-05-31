@@ -26,7 +26,6 @@ function renderServerInfo() {
 		payload.db = payload["db" + db];
 		serverInfo.innerHTML = serverInfoTemplate(payload);
 		keyNum = payload.db.keys;
-		console.log(keyNum);
 	}).catch((err) => {
 		throw err;
 	});
@@ -212,6 +211,7 @@ window.addEventListener("load", function (evt) {
 				fetch(path + "api/scan?q=" + this.value).then(res => res.json()).then((payload) => {
 					renderSearchResults(payload);
 					this.disabled = false;
+					this.focus();
 				}).catch((err) => {
 					throw err;
 				});

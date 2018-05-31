@@ -25,6 +25,17 @@
 - Autogenerates forms from hashsets and enables adding and removing attributes.
 
 
+### Supported glob-style patterns
+
+- h?llo matches hello, hallo and hxllo
+- h*llo matches hllo and heeeello
+- h[ae]llo matches hello and hallo, but not hillo
+- h[^e]llo matches hallo, hbllo, ... but not hello
+- h[a-b]llo matches hallo and hbllo
+
+Use \ to escape special characters if you want to match them verbatim. More on https://redis.io/commands/keys.
+
+
 ### TODO
 
 - [x] when usign * for query check num_keys and if larger that 500 alert user or even disable query

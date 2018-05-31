@@ -5,6 +5,7 @@
 - [ ] add sorted sets support
 - [ ] add bitmaps and hyperloglogs support
 
+- [ ] bulk delete sends command for deletetion in batch of 10
 - [ ] add connection indicator with redis ping and add try catch
 - [x] when usign * for query check num_keys and if larger that 500 alert user or even disable query
 - [x] on query enter press disable input and on results reenable input... loading

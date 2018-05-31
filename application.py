@@ -69,15 +69,23 @@ def route_api_scan():
 	bottle.response.headers["Cache-Control"] = "no-cache"
 	return json.dumps(payload)
 
-@app.route("{}api/del".format(args["path"]), method=["GET"])
+@app.route("{}api/del".format(args["path"]), method=["POST"])
 def route_api_del():
-	key = bottle.request.query.key
-	response = 0
-	if key != "":
-		response = app.config["r"].delete(key)
+	raw = bottle.request.body.read()
+	response = { "status": False, "items": [] }
+	payload = json.loads(raw)
+	if len(payload["items"]) > 0:
+		for key in payload["items"]:
+			try:
+				app.config["r"].delete(key)
+				response["items"].append(key)
+			except Exception as e:
+				print (e)
+		response["status"] = True
+
 	bottle.response.headers["Content-Type"] = "application/json"
 	bottle.response.headers["Cache-Control"] = "no-cache"
-	return json.dumps({"status": bool(response)})
+	return json.dumps(response)
 
 @app.route("{}api/get".format(args["path"]), method=["GET"])
 def route_api_get():

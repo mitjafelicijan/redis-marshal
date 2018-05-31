@@ -1,5 +1,6 @@
 const refreshRateForServerInfo = 5000;
 const queryKeySizeLimit = 500;
+const batchChunkSize = 50;
 
 let keyNum = 0;
 
@@ -149,7 +150,10 @@ function renderSearchResults(payload) {
 			let confirmDelete = confirm("Do you want to delete " + itemType + " item key with this id?\n" + itemKey);
 			if (confirmDelete) {
 				let sourceItem = evt.target.parentElement.parentElement;
-				fetch(path + "api/del?key=" + itemKey).then(res => res.json()).then((payload) => {
+				fetch(path + "api/del", {
+					method: "POST",
+					body: JSON.stringify({items: [itemKey]}),
+				}).then(res => res.json()).then((payload) => {
 					if (payload.status) {
 						sourceItem.parentElement.removeChild(sourceItem);
 					}
@@ -172,18 +176,29 @@ function renderSearchResults(payload) {
 		if (queryResults.querySelectorAll("tbody input[type=checkbox]:checked").length > 0) {
 			let confirmDelete = confirm("Do you SURE you want to delete selected items?");
 			if (confirmDelete) {
+				let itemForDeletion = [];
 				queryResults.querySelectorAll("tbody input[type=checkbox]").forEach((item, index) => {
 					if (item.checked) {
 						let sourceItem = item.parentElement.parentElement;
-						fetch(path + "api/del?key=" + sourceItem.dataset.key).then(res => res.json()).then((payload) => {
-							if (payload.status) {
-								sourceItem.parentElement.removeChild(sourceItem);
-							}
-						}).catch((err) => {
-							throw err;
-						});
+						itemForDeletion.push(sourceItem.dataset.key);
 					}
 				}, false);
+
+				let i, j, chunkArray;
+				for (i=0, j=itemForDeletion.length; i<j; i+=batchChunkSize) {
+					chunkArray = itemForDeletion.slice(i, i+batchChunkSize);
+					fetch(path + "api/del", {
+						method: "POST",
+						body: JSON.stringify({items: chunkArray}),
+					}).then(res => res.json()).then((payload) => {
+						payload.items.forEach((item, index) => {
+							let targetItem = queryResults.querySelector("tbody tr[data-key='" + item + "']");
+							targetItem.parentElement.removeChild(targetItem);
+						}, false);
+					}).catch((err) => {
+						throw err;
+					});
+				}
 			}
 		} else {
 			alert("No items selected");

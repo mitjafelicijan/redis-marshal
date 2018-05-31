@@ -115,3 +115,11 @@ unzip master.zip
 cd redis-marshal-master
 python2 application.py
 ```
+
+
+### Made with the help of
+
+- https://github.com/bottlepy/bottle
+- https://github.com/Pylons/waitress
+- https://github.com/andymccurdy/redis-py
+- https://github.com/wycats/handlebars.js/

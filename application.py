@@ -8,6 +8,7 @@ import logging
 import argparse
 import bottle
 
+CACHE_VER = "20180531"
 
 # terminal arguments
 ap = argparse.ArgumentParser()
@@ -47,6 +48,7 @@ def route_default():
 	with open("static/index.html", "r") as fp:
 		data = str(fp.read())
 		data = data.replace("$$path$$", args["path"])
+		data = data.replace("$$cache$$", CACHE_VER)
 		data = data.replace("$$db$$", str(args["redis_database"]))
 	return data
 

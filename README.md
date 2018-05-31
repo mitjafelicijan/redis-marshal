@@ -24,6 +24,7 @@ Todo list is located in [TODO.md](TODO.md).
 - Works with Docker and docker-compose.
 - No autentication implemented (use Nginx or Caddy as a reverse proxy and add Basic-Auth).
 - Allows bulk key deletion.
+- Allows table sorting of results based on keys and ttl.
 - Autogenerates forms from hashsets and enables adding and removing attributes.
 
 

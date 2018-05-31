@@ -16,9 +16,10 @@
 
 	<section id="ops" class="grid-half">
 		<div>
+			<button class="big exec-cmd">exec cmd</button>
+			<button class="big help">help me with querying</button>
 			<button class="big add-string hide">add string</button>
 			<button class="big add-hash hide">add hash</button>
-			<button class="big help">help me with querying</button>
 			<button class="big dump hide">dump database</button>
 		</div>
 		<div class="right" id="server-info"></div>
@@ -29,6 +30,13 @@
 	<section id="query-results"></section>
 
 	<section id="item-form"></section>
+
+	<section id="exec-command">
+		<input type="search" id="command" placeholder="set key value (enter)" autofocus autocapitalize="off" spellcheck="false">
+		<textarea spellcheck="false" readonly></textarea>
+	</section>
+
+	<section id="splashscreen"></section>
 
 	<!-- templates -->
 

@@ -54,6 +54,11 @@ def route_default():
 		data = data.replace("$$db$$", str(args["redis_database"]))
 	return data
 
+@app.route("{}api/info".format(args["path"]), method=["GET"])
+def route_api_info():
+	bottle.response.headers["Content-Type"] = "application/json"
+	bottle.response.headers["Cache-Control"] = "no-cache"
+	return json.dumps(app.config["r"].info())
 
 @app.route("{}api/scan".format(args["path"]), method=["GET"])
 def route_api_scan():
@@ -139,11 +144,24 @@ def route_api_set():
 	bottle.response.headers["Cache-Control"] = "no-cache"
 	return json.dumps(response)
 
-@app.route("{}api/info".format(args["path"]), method=["GET"])
-def route_api_info():
+@app.route("{}api/exec".format(args["path"]), method=["POST"])
+def route_api_exec():
+	raw = bottle.request.body.read()
+	response = { "status": False, "message": None }
+	payload = json.loads(raw)
+	if "cmd" in payload:
+		try:
+			response["message"] = app.config["r"].execute_command(payload["cmd"])
+			response["status"] = True
+		except Exception as e:
+			response["message"] = str(e)
+			print (e)
+
 	bottle.response.headers["Content-Type"] = "application/json"
 	bottle.response.headers["Cache-Control"] = "no-cache"
-	return json.dumps(app.config["r"].info())
+	return json.dumps(response)
+
+
 
 # starting server
 if __name__ == "__main__":

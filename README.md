@@ -2,7 +2,7 @@
 
 [![Build Status MASTER](https://travis-ci.org/mitjafelicijan/redis-marshal.svg?branch=master)](https://travis-ci.org/mitjafelicijan/redis-marshal) [![Build Status DEVEL](https://travis-ci.org/mitjafelicijan/redis-marshal.svg?branch=devel)](https://travis-ci.org/mitjafelicijan/redis-marshal)
 
-![Query window](https://user-images.githubusercontent.com/296714/40736271-de176370-643d-11e8-9ebe-4d0289893cc7.png)
+![Query window](https://user-images.githubusercontent.com/296714/40789890-d25e23dc-64f3-11e8-8667-d20fff6ee493.png)
 
 
 [Add suggestions or issues](https://github.com/mitjafelicijan/redis-marshal/issues/new)

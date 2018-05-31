@@ -2,12 +2,15 @@
 
 import os
 import sys
+import datetime
 import json
 import redis
 import logging
 import argparse
 import bottle
 
+CACHE_VER = "20180531"
+MAX_SIZE = 300
 
 # terminal arguments
 ap = argparse.ArgumentParser()
@@ -47,35 +50,55 @@ def route_default():
 	with open("static/index.html", "r") as fp:
 		data = str(fp.read())
 		data = data.replace("$$path$$", args["path"])
+		data = data.replace("$$cache$$", CACHE_VER)
 		data = data.replace("$$db$$", str(args["redis_database"]))
 	return data
 
 
 @app.route("{}api/scan".format(args["path"]), method=["GET"])
 def route_api_scan():
-	payload = []
+	payload = { "limitReached": False, "items": [], "elapsed": 0 }
 	query = bottle.request.query.q
 	pattern = query if query != "" else "*"
+	key_counter = 0
+	start = datetime.datetime.now()
 	for key in app.config["r"].scan_iter(pattern):
-		payload.append({
-			"key": key,
-			"ttl": app.config["r"].ttl(key),
-			"type": app.config["r"].type(key),
-		})
+		if key_counter < MAX_SIZE:
+			payload["items"].append({
+				"key": key,
+				"ttl": app.config["r"].ttl(key),
+				"type": app.config["r"].type(key),
+			})
+			key_counter += 1
+		else:
+			payload["limitReached"] = True
+			break
+	end = datetime.datetime.now()
+	diff = (end - start)
+	elapsed_ms = (diff.days * 86400000) + (diff.seconds * 1000) + (diff.microseconds / 1000)
+	payload["elapsed"] = elapsed_ms
 
 	bottle.response.headers["Content-Type"] = "application/json"
 	bottle.response.headers["Cache-Control"] = "no-cache"
 	return json.dumps(payload)
 
-@app.route("{}api/del".format(args["path"]), method=["GET"])
+@app.route("{}api/del".format(args["path"]), method=["POST"])
 def route_api_del():
-	key = bottle.request.query.key
-	response = 0
-	if key != "":
-		response = app.config["r"].delete(key)
+	raw = bottle.request.body.read()
+	response = { "status": False, "items": [] }
+	payload = json.loads(raw)
+	if len(payload["items"]) > 0:
+		for key in payload["items"]:
+			try:
+				app.config["r"].delete(key)
+				response["items"].append(key)
+			except Exception as e:
+				print (e)
+		response["status"] = True
+
 	bottle.response.headers["Content-Type"] = "application/json"
 	bottle.response.headers["Cache-Control"] = "no-cache"
-	return json.dumps({"status": bool(response)})
+	return json.dumps(response)
 
 @app.route("{}api/get".format(args["path"]), method=["GET"])
 def route_api_get():

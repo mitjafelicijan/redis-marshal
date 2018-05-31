@@ -7,7 +7,7 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Redis Marshal</title>
 
-	<link rel="stylesheet" href="$$path$$static/app.css">
+	<link rel="stylesheet" href="$$path$$static/app.css?v=$$cache$$">
 
 </head>
 <body>
@@ -84,6 +84,11 @@
 	<script id="query-results-tmpl" type="text/x-handlebars-template">
 		<section id="ops">
 			<button class="big bulk-delete">bulk delete</button>
+			<label>
+				<u>{{items.length}} items</u> fetched from Redis
+				<span>➜ query took {{elapsed}}ms</span>
+				<span class="red">{{#if limitReached}}(query too broad -> omitting other results){{/if}}</span>
+			</label>
 		</section>
 		<table class="sortable">
 			<thead>
@@ -96,11 +101,11 @@
 				</tr>
 			</thead>
 			<tbody>
-				{{#each this}}
+				{{#each items}}
 				<tr data-key="{{key}}" data-type="{{type}}">
 					<td><input type="checkbox"></td>
 					<td>{{type}}</td>
-					<td>{{key}}</td>
+					<td>{{truncate key 100}}</td>
 					<td class="right">{{ttl}}</td>
 					<td class="right match-content">
 						<button type="button" class="view" title="View item">v</button>
@@ -118,9 +123,9 @@
 		let path = "$$path$$";
 		let db = "$$db$$";
 	</script>
-	<script src="$$path$$static/handlebars.min.js"></script>
-	<script src="$$path$$static/helpers.js"></script>
-	<script src="$$path$$static/app.js"></script>
+	<script src="$$path$$static/handlebars.min.js?v=$$cache$$"></script>
+	<script src="$$path$$static/helpers.js?v=$$cache$$"></script>
+	<script src="$$path$$static/app.js?v=$$cache$$"></script>
 
 </body>
 </html>

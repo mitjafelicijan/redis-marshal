@@ -5,6 +5,9 @@
 ![Query window](https://user-images.githubusercontent.com/296714/40736271-de176370-643d-11e8-9ebe-4d0289893cc7.png)
 
 
+[Add suggestions or issues](https://github.com/mitjafelicijan/redis-marshal/issues/new)
+
+
 ### Current data type support
 
 - [x] Strings

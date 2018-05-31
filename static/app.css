@@ -105,6 +105,15 @@ div.column {
 	width: 100px;
 }
 
+section#ops label {
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 20px;
+	color: #bbb;
+	font-size: 80%;
+	font-weight: 700;
+}
+
 span.small {
 	font-size: 70%;
 	font-weight: 700;

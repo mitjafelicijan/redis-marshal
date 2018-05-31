@@ -24,6 +24,7 @@ h[a-b]llo matches hallo and hbllo`;
 function renderServerInfo() {
 	fetch(path + "api/info").then(res => res.json()).then((payload) => {
 		payload.db = payload["db" + db];
+		payload.total_commands_processed = numberFormatter(payload.total_commands_processed, 2);
 		serverInfo.innerHTML = serverInfoTemplate(payload);
 		keyNum = payload.db.keys;
 	}).catch((err) => {

@@ -96,6 +96,10 @@ button.delete {
 	white-space: nowrap;
 }
 
+.red {
+	color: lightcoral;
+}
+
 section#ops {
 	margin-bottom: 20px;
 }

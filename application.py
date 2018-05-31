@@ -9,7 +9,7 @@ import argparse
 import bottle
 
 CACHE_VER = "20180531"
-
+MAX_SIZE = 15
 # terminal arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("--port", dest="port", default=5000, type=int, help="server port")
@@ -55,15 +55,21 @@ def route_default():
 
 @app.route("{}api/scan".format(args["path"]), method=["GET"])
 def route_api_scan():
-	payload = []
+	payload = { "limitReached": False, "items": []}
 	query = bottle.request.query.q
 	pattern = query if query != "" else "*"
+	key_counter = 0
 	for key in app.config["r"].scan_iter(pattern):
-		payload.append({
-			"key": key,
-			"ttl": app.config["r"].ttl(key),
-			"type": app.config["r"].type(key),
-		})
+		if key_counter < MAX_SIZE:
+			payload["items"].append({
+				"key": key,
+				"ttl": app.config["r"].ttl(key),
+				"type": app.config["r"].type(key),
+			})
+			key_counter += 1
+		else:
+			payload["limitReached"] = True
+			break
 
 	bottle.response.headers["Content-Type"] = "application/json"
 	bottle.response.headers["Cache-Control"] = "no-cache"

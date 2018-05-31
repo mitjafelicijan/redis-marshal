@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # inserts demo testing data for development
+# for i in {1..50}; do python2 demo_data.py; done
 
 import random
 import string

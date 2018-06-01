@@ -5,6 +5,8 @@
 ![Query window](https://user-images.githubusercontent.com/296714/40789890-d25e23dc-64f3-11e8-8667-d20fff6ee493.png)
 
 
+#### Additional resources
+
 - [Screencast on Youtube](https://www.youtube.com/watch?v=KQVR3dXxGUQ)
 - [Add suggestions or issues](https://github.com/mitjafelicijan/redis-marshal/issues/new)
 

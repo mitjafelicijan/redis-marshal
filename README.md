@@ -5,7 +5,10 @@
 ![Query window](https://user-images.githubusercontent.com/296714/40789890-d25e23dc-64f3-11e8-8667-d20fff6ee493.png)
 
 
-[Add suggestions or issues](https://github.com/mitjafelicijan/redis-marshal/issues/new)
+#### Additional resources
+
+- [Screencast on Youtube](https://www.youtube.com/watch?v=KQVR3dXxGUQ)
+- [Add suggestions or issues](https://github.com/mitjafelicijan/redis-marshal/issues/new)
 
 
 ### Current data type support
@@ -29,6 +32,7 @@ Todo list is located in [TODO.md](TODO.md).
 - Allows bulk key deletion.
 - Allows table sorting of results based on type, key and ttl.
 - Autogenerates forms from hashsets and enables adding and removing attributes.
+- Allows executing commands.
 
 
 ### Supported glob-style patterns

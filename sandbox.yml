@@ -1,0 +1,28 @@
+version: "3"
+
+networks:
+  redis-marshal-net:
+    driver: bridge
+
+services:
+
+  redis:
+    image: redis
+    hostname: redis
+    ports:
+      - "6379:6379"
+    command: /usr/local/bin/redis-server --appendonly yes --appendfilename history.aof
+    volumes:
+      - ${PWD}/data:/data
+    networks:
+      redis-marshal-net:
+        aliases:
+          - redis-marshal.internal
+
+  cli:
+    image: redis
+    networks:
+      - redis-marshal-net
+    links:
+      - redis
+    command: redis-cli -h redis

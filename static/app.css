@@ -155,12 +155,13 @@ section#item-form {
 	overflow: auto;
 }
 
-section#item-form input {
+section#item-form input, section#item-form textarea {
 	width: 100%;
 	border: 0;
 	border: 1px dashed lightgray;
 	padding: 8px 12px;
 	font-size: 105%;
+	resize: vertical;
 }
 
 section#item-form > div {

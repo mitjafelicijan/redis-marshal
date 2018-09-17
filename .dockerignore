@@ -5,6 +5,12 @@
 docker-compose.yml
 Dockerfile
 README.md
+TODO.md
+demo_data.py
+.travis.yaml
 
 # directories
+.pytest_cache
 .git
+data
+sandbox

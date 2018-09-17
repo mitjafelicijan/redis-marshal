@@ -32,8 +32,3 @@ for i in xrange(args["num_records"]):
 	r.hset("demo_{}_{}".format("users", uid), "job", fake.job())
 	r.hset("demo_{}_{}".format("users", uid), "phone_number", fake.phone_number())
 	r.hset("demo_{}_{}".format("users", uid), "company", fake.company())
-
-
-
-
-

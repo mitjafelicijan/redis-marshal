@@ -46,7 +46,6 @@ Todo list is located in [TODO.md](TODO.md).
 Use `\` to escape special characters if you want to match them verbatim. More on https://redis.io/commands/keys.
 
 
-
 ### Application arguments
 
 ```

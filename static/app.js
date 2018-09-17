@@ -106,12 +106,12 @@ function renderPopupForm(key, type) {
 			if (type == "hash") {
 				root.querySelectorAll("table tr").forEach((item, index) => {
 					payload.value.push({
-						key: item.querySelector("input[name=key]").value,
-						value: item.querySelector("input[name=value]").value,
+						key: item.querySelector("[name=key]").value,
+						value: item.querySelector("[name=value]").value,
 					});
 				}, false);
 			} else {
-				payload.value = root.querySelector("input[name=value]").value
+				payload.value = root.querySelector("[name=value]").value
 			}
 
 			fetch(path + "api/set", {
